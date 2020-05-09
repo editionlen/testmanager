@@ -1,0 +1,16 @@
+arrow==0.15.6
+asgiref==3.2.7
+certifi==2020.4.5.1
+chardet==3.0.4
+Django==2.0
+djangorestframework==3.11.0
+idna==2.9
+multi-key-dict==2.0.3
+pbr==5.4.5
+python-dateutil==2.8.1
+python-jenkins==1.7.0
+pytz==2019.3
+requests==2.23.0
+six==1.14.0
+sqlparse==0.3.1
+urllib3==1.25.9
