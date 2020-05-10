@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf.urls import url, include
 from rest_framework import routers
 from user_manage.views import login_view, logout_view, UserViewSet, GroupViewSet
-from test_automation.views import import_case_by_local, load_test_suite_list, create_test_job, add_test_case, load_test_case_list, build_test_job, load_test_job_list, delete_test_job
+from test_automation.views import import_case_by_local, load_test_suite_list, create_test_job, add_test_case, load_test_case_list, build_test_job, load_test_job_list, delete_test_job, delete_test_case, delete_test_suite
 from test_automation_results.views import add_job_report, upload_log
 
 router = routers.DefaultRouter()
@@ -39,5 +39,7 @@ urlpatterns = [
     url(r'^add_job_report$', add_job_report),
     url(r'^upload_log$', upload_log),
     url(r'^delete_test_job$', delete_test_job),
+    url(r'^delete_test_case$', delete_test_case),
+    url(r'^delete_test_suite$', delete_test_suite),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

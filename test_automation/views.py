@@ -63,6 +63,22 @@ def add_test_case(request):
     return OK
 
 @csrf_exempt
+def delete_test_case(request):
+    data = json.loads(request.body)
+    test_case_id = data.pop("test_case_id")
+    t = TestCase.objects.get(id=test_case_id)
+    t.delete()
+    return OK
+
+@csrf_exempt
+def delete_test_suite(request):
+    data = json.loads(request.body)
+    test_suite_id = data.pop("test_suite_id")
+    t = TestCase.objects.get(id=test_suite_id)
+    t.delete()
+    return OK
+
+@csrf_exempt
 def create_test_job(request):
     data = json.loads(request.body)
     t = TestJobSerializer(data=data)
