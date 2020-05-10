@@ -52,6 +52,12 @@ def suites_to_robot(suites, job_name):
     rf_file = file
     return url_rf_path, rf_file
 
+def delete_job(test_job_id):
+    obj = TestJob.objects.get(id=test_job_id)
+    t = Job(obj.name)
+    t.delete()
+    obj.delete()
+
 # def build(name, suites, rebuild, url_rf_path, rf_file):
 #     print(name)
 #     t = Job(name, suites, rebuild, url_rf_path, rf_file)
@@ -84,6 +90,9 @@ class Job:
 
     def build(self):
         self.server.build_job(self.name, parameters={"id":1})
+
+    def delete(self):
+        self.server.delete_job(self.name)
 
 if __name__ == '__main__':
     suites_to_robot('1', 'test')

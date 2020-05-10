@@ -9,6 +9,9 @@ from test_automation.serializers import *
 from django.core import serializers
 from test_automation import job
 # Create your views here.
+def get_edit_test_job(request):
+    pass
+
 @csrf_exempt
 def import_case_by_local(request):
     '''
@@ -67,9 +70,6 @@ def create_test_job(request):
     t.save()
     return OK
 
-def get_edit_test_job(request):
-    pass
-
 def load_test_job_list(request):
     objects = TestJob.objects.all()
     data = json.loads(serializers.serialize("json", objects))
@@ -81,4 +81,11 @@ def build_test_job(request):
     param = json.loads(request.body)
     test_job_id = param['id']
     job.build(test_job_id)
+    return OK
+
+@csrf_exempt
+def delete_test_job(request):
+    param = json.loads(request.body)
+    test_job_id = param['id']
+    job.delete_job(test_job_id)
     return OK

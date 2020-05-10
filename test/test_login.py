@@ -33,11 +33,18 @@ class TestShaka:
         res = self.session.post(self.url + 'build_test_job', data=json.dumps(data, ensure_ascii=True))
         print(res.text)
 
+    def delete_test_job(self):
+        data = {"id":2}
+        res = self.session.post(self.url + 'delete_test_job', data=json.dumps(data, ensure_ascii=True))
+        print(res.text)
+
+
     def run(self):
         self.login()
         # self.add_test_case()
         # self.create_test_job()
-        self.build_test_job()
+        # self.build_test_job()
+        self.delete_test_job()
         self.logout()
 
 if __name__ == '__main__':
