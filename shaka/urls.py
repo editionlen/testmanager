@@ -19,7 +19,7 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from user_manage.views import login_view, logout_view, UserViewSet, GroupViewSet
 from test_automation.views import import_case_by_local, load_test_suite_list, create_test_job, add_test_case, load_test_case_list, build_test_job, load_test_job_list
-from test_automation_results.views import add_job_report
+from test_automation_results.views import add_job_report, upload_log
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -37,5 +37,6 @@ urlpatterns = [
     url(r'^add_test_case$', add_test_case),
     url(r'^build_test_job$', build_test_job),
     url(r'^add_job_report$', add_job_report),
+    url(r'^upload_log$', upload_log),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

@@ -24,12 +24,12 @@ class TestShaka:
         print(res.text)
 
     def create_test_job(self):
-        data = {"name":"test", "suites":"1,2,3"}
+        data = {"name":"test", "suites":"1"}
         res = self.session.post(self.url + 'create_test_job', data=json.dumps(data, ensure_ascii=True))
         print(res.text)
 
     def build_test_job(self):
-        data = {"id":1}
+        data = {"id":2}
         res = self.session.post(self.url + 'build_test_job', data=json.dumps(data, ensure_ascii=True))
         print(res.text)
 
