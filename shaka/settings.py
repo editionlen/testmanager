@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'user_manage',
     'test_automation',
+    'test_automation_results',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +149,7 @@ class JenkinsConfig:
     template = JenkinsTemplateConfig
     workspace = os.path.join(EDIT_HOME, "workspace")
     download_url = 'http://127.0.0.1:8000/static/workspace/'
+    upload_url = 'http://127.0.0.1:8000/'
 
 STATICFILES_DIRS = (
     os.path.join(os.path.join(BASE_DIR, '.edit')),

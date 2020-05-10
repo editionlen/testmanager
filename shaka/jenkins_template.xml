@@ -18,6 +18,18 @@
           <defaultValue>{rf_file}</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>get_report_url</name>
+          <description>结果回传脚本下载链接</description>
+          <defaultValue>{get_report_url}</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>add_job_report</name>
+          <description>结果回传脚本上传链接</description>
+          <defaultValue>{add_job_report}</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -32,7 +44,8 @@
     <hudson.tasks.BatchFile>
       <command>certutil -urlcache -split -f %url_rf_path%&#xd;
 robot %rf_file%&#xd;
-exit 0&#xd;
+certutil -urlcache -split -f %get_report_url%&#xd;
+python report.py %JOB_NAME% %add_job_report%
 </command>
     </hudson.tasks.BatchFile>
   </builders>

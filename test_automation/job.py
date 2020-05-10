@@ -72,7 +72,9 @@ class Job:
         url_rf_path, rf_file = suites_to_robot(self.suites, self.name)
         configure = JenkinsConfig.template.format(
             url_rf_path=url_rf_path,
-            rf_file=rf_file
+            rf_file=rf_file,
+            get_report_url=JenkinsConfig.download_url + 'report.py',
+            add_job_report=JenkinsConfig.upload_url
         )
         if self.server.job_exists(self.name):
             if self.rebuild:
