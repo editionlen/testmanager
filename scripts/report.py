@@ -1,33 +1,46 @@
-import os
 '''
 parse output to result and report result to server
 '''
-def parse():
-    '''
-    example:
-    results = {"job_name":"test",
-             "build_id":1,
-            "cases":[
-            {"name": "t1",
-            "status": 0,
-            "build_time": 158678992,
-            "url": "http://127.0.0.1/static/log.html#s1-t1"}
-            ]}
-    :return:
-    '''
-    results = {}
-    output = "D:/project/shaka/.edit/workspace/test/"
-    output_xml = os.path.join(output, "output.xml")
-    with open(output_xml, encoding='utf8') as f:
-        data = f.read()
-    print(data)
-    return results
+import sys
+import re
+import requests
+import json
+def parse(filename):
+    # output = "D:/project/shaka/.edit/workspace/test/"
+    # output_xml = os.path.join(output, "output.xml")
+    with open(filename, encoding='utf8') as f:
+        lines = f.readlines()
+    suites = {}
+    suite = ''
+    test = ''
+    for line in lines:
+        if '<suite' in line and 'name' in line:
+            suite = re.findall('name="(.+?)"', line)[0]
+            suites[suite] = {}
+        if '<test' in line and 'name' in line and 'id' in line:
+            test = re.findall('name="(.+?)"', line)[0]
+            html_id = re.findall('id="(.+?)"', line)[0]
+            suites[suite][test] = {"id":html_id}
+        if '<status' in line and 'starttime' in line and 'endtime':
+            status = re.findall('status="(.+?)"', line)[0]
+            suites[suite][test]['status'] = status
+            starttime = re.findall('starttime="(.+?)"', line)[0]
+            suites[suite][test]['starttime'] = starttime
+            endtime = re.findall('endtime="(.+?)"', line)[0]
+            suites[suite][test]['endtime'] = endtime
+    print(suites)
+    return suites
 
-def report(results):
-    pass
+def report(url, name, suites):
+    data = {"job_name":name, "suites":suites}
+    response = requests.post(url, data=json.dumps(data))
+    print(response)
 
 def main():
-    parse()
+    name = sys.argv[1]
+    url = sys.argv[2]
+    suites = parse("output.xml")
+    report(url, name, suites)
 
 if __name__ == '__main__':
     main()

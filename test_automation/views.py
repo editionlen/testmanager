@@ -18,11 +18,11 @@ def import_case_by_local(request):
     '''
     file = request.FILES.get('files')
     # 文件路径
-    path = os.path.join(EDIT_HOME, file.name)
+    path = os.path.join(EDIT_HOME, "upload", file.name)
     with open(path, 'wb') as f:
         for i in file.chunks():
             f.write(i)
-    with open(path) as f:
+    with open(path, encoding='utf8') as f:
         lines = f.readlines()
     test_suite_obj = TestSuite(name=file.name)
     test_suite_obj.save()

@@ -18,10 +18,10 @@ def script_to_sql(script):
                 settings.append(line)
             if case_flag == 1:
                 if line[0] != ' ':
-                    cases[line] = []
-                    case_name = line
+                    case_name = line.strip('\n')
+                    cases[case_name] = ""
                 else:
-                    cases[case_name].append(line)
+                    cases[case_name] += line
     print(settings)
     print(cases)
     return settings, cases
